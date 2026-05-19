@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Configurações de conexão com o banco de dados -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/locacao_veiculos</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">adminadmin</property>
+        
+        <!-- Dialeto do PostgreSQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        
+        <!-- Estratégia de geração do schema -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        
+        <!-- Mostrar SQL no console -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        
+        <!-- Pool de conexões -->
+        <property name="hibernate.connection.pool_size">10</property>
+        
+        <!-- Configurações adicionais -->
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+    </session-factory>
+</hibernate-configuration>

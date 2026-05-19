@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.locacao.controller.MainController">
+    
+    <!-- Topo -->
+    <top>
+        <VBox style="-fx-background-color: #2c3e50;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Sistema de Locação de Veículos" textFill="white">
+                <font>
+                    <Font name="System Bold" size="24"/>
+                </font>
+            </Label>
+            <Label text="Gerenciamento Completo de Locações" textFill="#ecf0f1">
+                <font>
+                    <Font size="14"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    
+    <!-- Centro -->
+    <center>
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <!-- Aba Marcas e Modelos -->
+                <Tab text="Marcas e Modelos">
+                    <VBox spacing="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+                        
+                        <Label text="Gerenciar Marcas e Modelos" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                        
+                        <HBox spacing="10">
+                            <TextField fx:id="txtMarcaNome" promptText="Nome da Marca" prefWidth="200"/>
+                            <Button fx:id="btnInserirMarca" text="Inserir Marca" onAction="#handleInserirMarca" 
+                                    style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                        </HBox>
+                        
+                        <Separator/>
+                        
+                        <Label text="Adicionar Modelo à Marca"/>
+                        <HBox spacing="10">
+                            <ComboBox fx:id="cmbMarcas" promptText="Selecione a Marca" prefWidth="200"/>
+                            <TextField fx:id="txtModeloNome" promptText="Nome do Modelo" prefWidth="200"/>
+                            <TextField fx:id="txtModeloAno" promptText="Ano (yyyy)" prefWidth="100"/>
+                            <TextField fx:id="txtModeloQt" promptText="Quantidade" prefWidth="100"/>
+                            <Button fx:id="btnInserirModelo" text="Adicionar Modelo" onAction="#handleInserirModelo"
+                                    style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                        </HBox>
+                        
+                        <Separator/>
+                        
+                        <Label text="Marcas Cadastradas"/>
+                        <TableView fx:id="tableMarcas" prefHeight="200">
+                            <columns>
+                                <TableColumn fx:id="colMarcaId" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="colMarcaNome" text="Nome" prefWidth="200"/>
+                                <TableColumn fx:id="colMarcaQtdModelos" text="Qtd Modelos" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                
+                <!-- Aba Veículos -->
+                <Tab text="Veículos">
+                    <VBox spacing="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+                        
+                        <Label text="Gerenciar Veículos" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                        
+                        <Label text="Cadastrar Novo Veículo" style="-fx-font-weight: bold;"/>
+                        <GridPane hgap="10" vgap="10">
+                            <Label text="Modelo:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <ComboBox fx:id="cmbModelos" promptText="Selecione o Modelo" prefWidth="200" 
+                                     GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            
+                            <Label text="Tipo de Carro:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <ComboBox fx:id="cmbTipoCarro" promptText="Selecione o Tipo" prefWidth="250" 
+                                     GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            
+                            <Label text="Placa:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="txtVeiculoPlaca" promptText="ABC-1234" 
+                                      GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            
+                            <Label text="Chassi:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <TextField fx:id="txtVeiculoChassi" promptText="Chassi" 
+                                      GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                            
+                            <Label text="Renavam:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                            <TextField fx:id="txtVeiculoRenavam" promptText="Renavam" 
+                                      GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                            
+                            <Label text="Cor:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                            <TextField fx:id="txtVeiculoCor" promptText="Cor" 
+                                      GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                            
+                            <Label text="KM:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                            <TextField fx:id="txtVeiculoKm" promptText="0" 
+                                      GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                            
+                            <Label text="Status:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                            <ComboBox fx:id="cmbVeiculoStatus" prefWidth="200" 
+                                     GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                        </GridPane>
+                        
+                        <Button fx:id="btnInserirVeiculo" text="Inserir Veículo" onAction="#handleInserirVeiculo"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                        
+                        <Separator/>
+                        
+                        <Label text="Atualizar Veículo Selecionado" style="-fx-font-weight: bold;"/>
+                        <HBox spacing="10">
+                            <VBox spacing="5">
+                                <Label text="Novo KM:"/>
+                                <TextField fx:id="txtNovoKm" promptText="Novo KM" prefWidth="150"/>
+                            </VBox>
+                            <VBox spacing="5">
+                                <Label text="Novo Status:"/>
+                                <ComboBox fx:id="cmbNovoStatus" prefWidth="200"/>
+                            </VBox>
+                            <VBox spacing="5" alignment="BOTTOM_LEFT">
+                                <Button fx:id="btnAtualizarKm" text="Atualizar KM" onAction="#handleAtualizarKm"
+                                        style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                            </VBox>
+                            <VBox spacing="5" alignment="BOTTOM_LEFT">
+                                <Button fx:id="btnAtualizarStatus" text="Atualizar Status" onAction="#handleAtualizarStatus"
+                                        style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                            </VBox>
+                        </HBox>
+                        
+                        <Separator/>
+                        
+                        <Label text="Veículos Cadastrados"/>
+                        <TableView fx:id="tableVeiculos" prefHeight="200">
+                            <columns>
+                                <TableColumn fx:id="colVeiculoId" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="colVeiculoPlaca" text="Placa" prefWidth="100"/>
+                                <TableColumn fx:id="colVeiculoModelo" text="Modelo" prefWidth="120"/>
+                                <TableColumn fx:id="colVeiculoTipo" text="Tipo" prefWidth="100"/>
+                                <TableColumn fx:id="colVeiculoStatus" text="Status" prefWidth="120"/>
+                                <TableColumn fx:id="colVeiculoKm" text="KM" prefWidth="80"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                
+                <!-- Aba Locações -->
+                <Tab text="Locações">
+                    <VBox spacing="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+                        
+                        <Label text="Gerenciar Locações" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                        
+                        <Label text="Criar Nova Locação" style="-fx-font-weight: bold;"/>
+                        <GridPane hgap="10" vgap="10">
+                            <Label text="Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <ComboBox fx:id="cmbLocacaoCliente" promptText="Selecione o Cliente" prefWidth="250" 
+                                     GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            
+                            <Label text="Tipo de Carro:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <ComboBox fx:id="cmbLocacaoTipoCarro" promptText="Selecione o Tipo" prefWidth="250" 
+                                     GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#handleTipoCarroSelecionado"/>
+                            
+                            <Label text="Veículo Disponível:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <ComboBox fx:id="cmbLocacaoVeiculo" promptText="Selecione o Veículo" prefWidth="250" 
+                                     GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            
+                            <Label text="Data Retirada:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <DatePicker fx:id="dpDataRetirada" GridPane.columnIndex="1" GridPane.rowIndex="3" 
+                                       onAction="#handleCalcularValorLocacao"/>
+                            
+                            <Label text="Data Devolução:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                            <DatePicker fx:id="dpDataDevolucao" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                                       onAction="#handleCalcularValorLocacao"/>
+                            
+                            <Label text="Preço/Dia:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                            <Label fx:id="lblPrecoDiaria" text="R$ 0,00" style="-fx-font-weight: bold; -fx-font-size: 14;"
+                                   GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                            
+                            <Label text="Dias:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                            <Label fx:id="lblDias" text="0" style="-fx-font-weight: bold; -fx-font-size: 14;"
+                                   GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                            
+                            <Label text="Valor Total:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                            <Label fx:id="lblValorTotal" text="R$ 0,00" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #27ae60;"
+                                   GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                        </GridPane>
+                        
+                        <Button fx:id="btnCriarLocacao" text="Criar Locação" onAction="#handleCriarLocacao"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                        
+                        <Separator/>
+                        
+                        <Label text="Adicionar Ocorrência à Locação"/>
+                        <HBox spacing="10">
+                            <ComboBox fx:id="cmbLocacoes" promptText="Selecione a Locação" prefWidth="150"/>
+                            <TextField fx:id="txtOcorrenciaDescricao" promptText="Descrição" prefWidth="200"/>
+                            <TextField fx:id="txtOcorrenciaValor" promptText="Valor" prefWidth="100"/>
+                            <Button fx:id="btnAdicionarOcorrencia" text="Adicionar Ocorrência" onAction="#handleAdicionarOcorrencia"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                        </HBox>
+                        
+                        <Separator/>
+                        
+                        <Label text="Consultar Locações por Cliente"/>
+                        <HBox spacing="10">
+                            <ComboBox fx:id="cmbClientes" promptText="Selecione o Cliente" prefWidth="200"/>
+                            <Button fx:id="btnConsultarLocacoes" text="Consultar" onAction="#handleConsultarLocacoes"
+                                    style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                        </HBox>
+                        
+                        <TableView fx:id="tableLocacoes" prefHeight="150">
+                            <columns>
+                                <TableColumn fx:id="colLocacaoId" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="colLocacaoVeiculo" text="Veículo" prefWidth="120"/>
+                                <TableColumn fx:id="colLocacaoDataRetirada" text="Data Retirada" prefWidth="120"/>
+                                <TableColumn fx:id="colLocacaoDataDevolucao" text="Data Devolução" prefWidth="120"/>
+                                <TableColumn fx:id="colLocacaoValor" text="Valor" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                        
+                        <Separator/>
+                        <Label text="Gerenciar Locação Selecionada" style="-fx-font-weight: bold;"/>
+                        <HBox spacing="10">
+                            <Label text="Alterar Dias (+/-):"/>
+                            <TextField fx:id="txtDiasAlterar" promptText="Ex: +3 ou -2" prefWidth="150"/>
+                            <Button text="Alterar Locação" onAction="#handleAlterarLocacao"
+                                    style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                            <Button text="Excluir Locação" onAction="#handleExcluirLocacao"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                        </HBox>
+                    </VBox>
+                </Tab>
+                
+                <!-- Aba Ocorrências -->
+                <Tab text="Ocorrências">
+                    <VBox spacing="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+                        
+                        <Label text="Gerenciar Ocorrências" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                        
+                        <Label text="Ocorrências Cadastradas"/>
+                        <TableView fx:id="tableOcorrencias" prefHeight="300">
+                            <columns>
+                                <TableColumn fx:id="colOcorrenciaId" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="colOcorrenciaDescricao" text="Descrição" prefWidth="300"/>
+                                <TableColumn fx:id="colOcorrenciaValor" text="Valor" prefWidth="100"/>
+                                <TableColumn fx:id="colOcorrenciaLocacao" text="Locação ID" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                        
+                        <Button fx:id="btnExcluirOcorrencia" text="Excluir Ocorrência Selecionada" onAction="#handleExcluirOcorrencia"
+                                style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                    </VBox>
+                </Tab>
+                
+                <!-- Aba Clientes -->
+                <Tab text="Clientes">
+                    <VBox spacing="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+                        
+                        <Label text="Cadastrar Novo Cliente" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                        
+                        <GridPane hgap="10" vgap="10">
+                            <Label text="CNH:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <TextField fx:id="txtClienteCnh" promptText="Número da CNH" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+                            
+                            <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <TextField fx:id="txtClienteNome" promptText="Nome completo" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200"/>
+                            
+                            <Label text="CPF:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="txtClienteCpf" promptText="000.000.000-00" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="200"/>
+                            
+                            <Label text="Login:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <TextField fx:id="txtClienteLogin" promptText="Login de acesso" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="200"/>
+                            
+                            <Label text="Senha:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                            <PasswordField fx:id="txtClienteSenha" promptText="Senha" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="200"/>
+                            
+                            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                            <TextField fx:id="txtClienteEmail" promptText="email@exemplo.com" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="200"/>
+                            
+                            <Label text="Telefone:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                            <TextField fx:id="txtClienteTelefone" promptText="(00) 0000-0000" GridPane.columnIndex="1" GridPane.rowIndex="6" prefWidth="200"/>
+                            
+                            <Label text="Celular:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                            <TextField fx:id="txtClienteCelular" promptText="(00) 00000-0000" GridPane.columnIndex="1" GridPane.rowIndex="7" prefWidth="200"/>
+                        </GridPane>
+                        
+                        <Label text="Endereço" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-padding: 10 0 0 0;"/>
+                        
+                        <GridPane hgap="10" vgap="10">
+                            <Label text="CEP:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <TextField fx:id="txtClienteCep" promptText="00000-000" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+                            
+                            <Label text="Logradouro:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <TextField fx:id="txtClienteLogradouro" promptText="Rua, Avenida..." GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200"/>
+                            
+                            <Label text="Complemento:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="txtClienteComplemento" promptText="Apto, Bloco..." GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="200"/>
+                            
+                            <Label text="Número:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <TextField fx:id="txtClienteNumero" promptText="Número" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="200"/>
+                            
+                            <Label text="Referência:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                            <TextField fx:id="txtClienteReferencia" promptText="Ponto de referência" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="200"/>
+                        </GridPane>
+                        
+                        <Button fx:id="btnInserirCliente" text="Cadastrar Cliente" onAction="#handleInserirCliente"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10;"/>
+                        
+                        <Separator/>
+                        
+                        <Label text="Clientes Cadastrados" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+                        <TableView fx:id="tableClientes" prefHeight="200">
+                            <columns>
+                                <TableColumn fx:id="colClienteId" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="colClienteCnh" text="CNH" prefWidth="100"/>
+                                <TableColumn fx:id="colClienteNome" text="Nome" prefWidth="200"/>
+                                <TableColumn fx:id="colClienteCpf" text="CPF" prefWidth="120"/>
+                                <TableColumn fx:id="colClienteEmail" text="Email" prefWidth="150"/>
+                                <TableColumn fx:id="colClienteTelefone" text="Telefone" prefWidth="120"/>
+                            </columns>
+                        </TableView>
+                        
+                        <Separator/>
+                        <Label text="Gerenciar Cliente Selecionado" style="-fx-font-weight: bold;"/>
+                        <HBox spacing="10">
+                            <Button text="Carregar Dados" onAction="#handleCarregarCliente"
+                                    style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                            <Button text="Atualizar Cliente" onAction="#handleAtualizarCliente"
+                                    style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                            <Button text="Excluir Cliente" onAction="#handleExcluirCliente"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                        </HBox>
+                    </VBox>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+    
+    <!-- Rodapé -->
+    <bottom>
+        <HBox style="-fx-background-color: #34495e; -fx-padding: 10;">
+            <Label fx:id="lblStatus" text="Sistema pronto" textFill="white">
+                <font>
+                    <Font size="12"/>
+                </font>
+            </Label>
+        </HBox>
+    </bottom>
+</BorderPane>
